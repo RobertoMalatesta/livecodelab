@@ -79,6 +79,12 @@ define [
       "stroke"
       "noFill"
       "noStroke"
+      "forward"
+      "back"
+      "turnRight"
+      "turnLeft"
+      "turnUp"
+      "turnDown"
     ]
     primitives: [
       # Geometry
@@ -87,6 +93,8 @@ define [
       "box"
       "ball"
       "peg"
+      "turtle"
+      "axes"
       # Others
       "run"
     ]
