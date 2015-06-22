@@ -87,6 +87,7 @@ define [
       "box"
       "ball"
       "peg"
+      "label"
       # Others
       "run"
     ]
