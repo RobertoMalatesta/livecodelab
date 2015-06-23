@@ -624,12 +624,16 @@ define () ->
         title: "Smileys fountain"
         code: """
               background black
-              noStroke
-              rotate time/10
-              move -4, 0, 0
+              play 'tranceKick'  ,'-x-x ---x x--- --xx'
+              play "penta" + int(time + random 3)%16 ,'x'
+              play "dish" + int(random 3) ,'x'
+              play "highHatClosed"  ,'--x- ---- --x- ----'
+
+              rotate time,sin(time)%Math.PI/4,0
+              scale 2,1,1
+              move -3, 0, 0
               symbols = ["Ƹ̵̡Ӝ̵̨̄Ʒ", "ʕ•ᴥ•ʔ", "◔⌣◔", "͡° ͜ʖ ͡°","★","❀","◕‿◕","☃", "♫", "❤"]
-              symbol = symbols[Math.floor time/2%symbols.length]
-              numberOfParticles = 20
+              numberOfParticles = 80
               numberOfParticles times with i
               ▶r = ((i  * 3) + (time * 12)) % 255
               ▶g = ((i * 7) + (time * 30 + 20) * 7) % 255
