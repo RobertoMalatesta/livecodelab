@@ -913,6 +913,10 @@ define [
       else
         appendedFunction = undefined
 
+      # floats are shortened to two digits after
+      # the point, otherwise it looks messy
+      if _.isNumber a
+        a = a.toFixed(2)
 
       if !a?
         a = @numberOfLabels
