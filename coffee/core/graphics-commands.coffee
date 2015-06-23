@@ -928,6 +928,7 @@ define [
         labelDiv.style.position = 'absolute'
         labelDiv.style.width = 100
         labelDiv.style.height = 100
+        labelDiv.style.color = "rgb("+redF(@currentFillColor)+","+greenF(@currentFillColor)+","+blueF(@currentFillColor)+")"
         labelDiv.innerHTML = "" + a
         labelDiv.style.top = posy + 'px'
         labelDiv.style.left = posx + 'px'
