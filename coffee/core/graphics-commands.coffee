@@ -167,6 +167,7 @@ define [
     # Initialised in the constructor.
     lastPositionOfPrimitiveType: []
     numberOfOverlappingPrimitives: []
+    numberOfLabels: 0
 
     # we can avoid invoking render() if there are
     # two consecutive frames where no object-drawing
@@ -912,28 +913,32 @@ define [
       else
         appendedFunction = undefined
 
-      if a?
-        worldMatrix = @matrixCommands.getWorldMatrix()
-   
-        widthHalf = window.innerWidth / 2
-        heightHalf = window.innerHeight / 2
-        vector = new THREE.Vector3(0,0,0)
-        vector.setFromMatrixPosition(worldMatrix)
-        vector.project(@threeJsSystem.camera)
-        posx = ( vector.x * widthHalf ) + widthHalf
-        posy = - ( vector.y * heightHalf ) + heightHalf
+
+      if !a?
+        a = @numberOfLabels
+        @numberOfLabels++
+
+      worldMatrix = @matrixCommands.getWorldMatrix()
+ 
+      widthHalf = window.innerWidth / 2
+      heightHalf = window.innerHeight / 2
+      vector = new THREE.Vector3(0,0,0)
+      vector.setFromMatrixPosition(worldMatrix)
+      vector.project(@threeJsSystem.camera)
+      posx = ( vector.x * widthHalf ) + widthHalf
+      posy = - ( vector.y * heightHalf ) + heightHalf
 
 
-        labelDiv = document.createElement('div')
-        labelDiv.style.position = 'absolute'
-        labelDiv.style.width = 100
-        labelDiv.style.height = 100
-        labelDiv.style.color = "rgb("+redF(@currentFillColor)+","+greenF(@currentFillColor)+","+blueF(@currentFillColor)+")"
-        labelDiv.innerHTML = "" + a
-        labelDiv.style.top = posy + 'px'
-        labelDiv.style.left = posx + 'px'
-        holdingDiv = document.getElementById("labels")
-        holdingDiv.appendChild labelDiv
+      labelDiv = document.createElement('div')
+      labelDiv.style.position = 'absolute'
+      labelDiv.style.width = 100
+      labelDiv.style.height = 100
+      labelDiv.style.color = "rgb("+redF(@currentFillColor)+","+greenF(@currentFillColor)+","+blueF(@currentFillColor)+")"
+      labelDiv.innerHTML = "" + a
+      labelDiv.style.top = posy + 'px'
+      labelDiv.style.left = posx + 'px'
+      holdingDiv = document.getElementById("labels")
+      holdingDiv.appendChild labelDiv
 
       if appendedFunction?
         appendedFunction()
