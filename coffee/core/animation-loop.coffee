@@ -177,6 +177,7 @@ define () ->
         @blendControls.animationStyleUpdateIfChanged()
         @renderer.render(@graphicsCommands)
 
+
       # we have to repeat this check because in the case
       # the user has set frame = 0,
       # then we have to catch that case here
@@ -204,6 +205,32 @@ define () ->
         @graphicsCommands.atLeastOneObjectWasDrawn = @graphicsCommands.atLeastOneObjectIsDrawn
 
 
+      custom_compare = (a,b) ->
+        # I'm assuming all values are numbers
+        if a.fontSize < b.fontSize
+          return -1
+        else if a.fontSize > b.fontSize
+          return 1
+        return 0
+      @graphicsCommands.labelsData.sort(custom_compare)
+      #debugger
+      @graphicsCommands.disposableLabelsHolder = document.createElement('div')
+      for eachLabel in @graphicsCommands.labelsData
+        labelDiv = document.createElement('div')
+        labelDiv.style.position = 'absolute'
+        labelDiv.style.width = 100
+        labelDiv.style.height = 100
+        labelDiv.innerHTML = "" + eachLabel.text
+        labelDiv.style.top = eachLabel.y + 'px'
+        labelDiv.style.left = eachLabel.x + 'px'
+        labelDiv.style.fontSize =  eachLabel.fontSize + '%'
+        labelDiv.style.color = "rgb("+eachLabel.r+","+eachLabel.g+","+eachLabel.b+")"
+        @graphicsCommands.disposableLabelsHolder.appendChild labelDiv
+
+      holdingDiv = document.getElementById("labels")
+      @graphicsCommands.disposableLabelsHolder
+      holdingDiv.appendChild @graphicsCommands.disposableLabelsHolder
+
       # update stats
       if @stats then @stats.update()
 
@@ -225,10 +252,13 @@ define () ->
 
       # if the user used labels in previous frame, they are in this div
       # and they must be cleared.
-      labelsDiv = document.getElementById("labels")
-      if labelsDiv.firstChild
-        document.getElementById("labels").innerHTML = ""
+      if @graphicsCommands.disposableLabelsHolder?
+        parentDiv = @graphicsCommands.disposableLabelsHolder.parentNode
+        if parentDiv?
+          parentDiv.removeChild(@graphicsCommands.disposableLabelsHolder)
+        
         @graphicsCommands.numberOfLabels = 0
+        @graphicsCommands.labelsData = []
 
       # In case we want to make each frame an actual
       # pure function then we need to seed "random" and "noise"
