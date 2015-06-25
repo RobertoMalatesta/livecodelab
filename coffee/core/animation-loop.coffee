@@ -217,7 +217,7 @@ define () ->
       @graphicsCommands.disposableLabelsHolder = document.createElement('div')
       for eachLabel in @graphicsCommands.labelsData
         labelDiv = document.createElement('div')
-        labelDiv.style.position = 'absolute'
+        labelDiv.style.position = 'fixed'
         labelDiv.style.width = 100
         labelDiv.style.height = 100
         labelDiv.innerHTML = "" + eachLabel.text

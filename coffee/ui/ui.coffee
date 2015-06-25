@@ -73,6 +73,9 @@ define [
       canvas.style.width = sx + "px"
       canvas.style.height = sy + "px"
 
+      document.getElementById("labels").style.width = window.innerWidth + "px"
+      document.getElementById("labels").style.height = window.innerHeight + "px"
+
       scaleString = 10 + ", " + 10
 
       $(canvas).css("-ms-transform-origin", "0% 0%")
